@@ -1,6 +1,6 @@
 import { DomainEvent } from "@core/domain/events";
 
-export interface ApplicationEventHandler<
+export interface EventHandler<
   IDomainEvent extends DomainEvent,
   Response = unknown
 > {
