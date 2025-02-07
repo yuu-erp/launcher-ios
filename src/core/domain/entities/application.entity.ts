@@ -4,13 +4,13 @@ import {
 } from "@core/exceptions";
 import { invariant } from "@techmely/utils";
 import { ApplicationType } from "../enums/application.enums";
-import { ApplicationProps, CreateApplicationProps } from "../types";
+import { ApplicationCreatedDomainEvent } from "../events/application-created.event";
+import { ApplicationProps } from "../types";
 import { AggregateRoot } from "./aggregate.base";
 import { UniqueEntityID } from "./unique-entity";
-import { ApplicationCreatedDomainEvent } from "../events/application-created.event";
 
 export class ApplicationEntity extends AggregateRoot<ApplicationProps> {
-  static create(createProps: CreateApplicationProps) {
+  static create(createProps: ApplicationProps) {
     const id = new UniqueEntityID(createProps.id);
     const props = { ...createProps };
     const application = new ApplicationEntity({ id, props });
@@ -24,6 +24,11 @@ export class ApplicationEntity extends AggregateRoot<ApplicationProps> {
       })
     );
     return application;
+  }
+
+  update(updatedProps: Partial<ApplicationProps>) {
+    this.setProps(updatedProps);
+    this.validate();
   }
 
   validate(): void {
@@ -40,7 +45,6 @@ export class ApplicationEntity extends AggregateRoot<ApplicationProps> {
       position.height > 0,
       new ArgumentNotProvidedException("Position height must be greater than 0")
     );
-
     invariant(
       Object.values(ApplicationType).includes(type),
       new ArgumentInvalidException("Invalid application type")

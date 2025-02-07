@@ -16,6 +16,4 @@ export interface ApplicationProps {
   type: ApplicationType;
   metadata?: ApplicationMetadata;
 }
-
-export interface CreateApplicationProps extends ApplicationProps {}
 export interface IApplicationCreatedDE extends Omit<ApplicationProps, "id"> {}

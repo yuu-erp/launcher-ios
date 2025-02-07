@@ -1,6 +1,5 @@
 import { invariant, isEmpty } from "@techmely/utils";
 import type { MarkOptional } from "ts-essentials";
-
 import {
   ArgumentInvalidException,
   ArgumentNotProvidedException,
@@ -23,7 +22,7 @@ export interface CreateEntityProps<T>
 export abstract class Entity<Props> {
   #id: UniqueEntityID;
   readonly #createdAt: Date;
-  readonly #props: Props;
+  #props: Props;
   #updatedAt: Date;
 
   constructor({ id, props, createdAt, updatedAt }: CreateEntityProps<Props>) {
@@ -60,6 +59,11 @@ export abstract class Entity<Props> {
       ...this.#props,
     };
     return Object.freeze(clone);
+  }
+
+  protected setProps(updatedProps: Partial<Props>) {
+    this.#props = { ...this.#props, ...updatedProps };
+    this.#updatedAt = new Date();
   }
 
   /**
