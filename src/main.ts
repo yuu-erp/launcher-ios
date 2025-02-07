@@ -1,6 +1,8 @@
 import { AppContainer } from "@core/app-container";
 import { APPLICATION_USE_CASE } from "@core/app.symbols";
+import { UpdateApplicationEventHandle } from "@core/application/event-handler/update-application.event-handle";
 import { CalculateLayoutInteractor } from "@core/application/use-case/interactors/calculate-layout.interactor";
+import { Emitter } from "@core/infrastructure/event";
 import { Logger } from "@core/infrastructure/logger";
 
 async function bootstrap() {
@@ -15,6 +17,10 @@ async function bootstrap() {
     logger.log("CalculateLayoutInteractor dependencies initialized");
     calculateLayoutUseCase.execute();
     logger.log("Metanode application successfully started");
+    const event = new Emitter();
+    event.on("ApplicationUpdateDomainEvent", (event: any) => {
+      new UpdateApplicationEventHandle("huiu").handle(event);
+    });
   } catch (error) {
     logger.error("Application fail", error);
   }
