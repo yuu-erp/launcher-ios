@@ -8,6 +8,7 @@ import { ApplicationCreatedDomainEvent } from "../events/application-created.eve
 import { ApplicationProps } from "../types";
 import { AggregateRoot } from "./aggregate.base";
 import { UniqueEntityID } from "./unique-entity";
+import { ApplicationUpdateDomainEvent } from "../events/application-update.event";
 
 export class ApplicationEntity extends AggregateRoot<ApplicationProps> {
   static create(createProps: ApplicationProps) {
@@ -27,8 +28,19 @@ export class ApplicationEntity extends AggregateRoot<ApplicationProps> {
   }
 
   update(updatedProps: Partial<ApplicationProps>) {
-    this.setProps(updatedProps);
-    this.validate();
+    const id = new UniqueEntityID(updatedProps.id);
+    const props = { ...this.getProps(), ...updatedProps };
+    const application = new ApplicationEntity({ id, props });
+    application.addEvent(
+      new ApplicationUpdateDomainEvent({
+        aggregateId: id,
+        ...props,
+        _metadata: {
+          timestamp: Date.now(),
+        },
+      })
+    );
+    return application;
   }
 
   validate(): void {
