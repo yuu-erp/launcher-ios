@@ -12,6 +12,6 @@ export class GetLayoutInteractor implements UseCase<unknown, ILayout> {
   ) {}
 
   execute(): ILayout {
-    return this.getLayoutPort.getAll();
+    return this.getLayoutPort.find();
   }
 }

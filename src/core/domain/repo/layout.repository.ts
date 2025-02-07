@@ -1,6 +1,4 @@
 import { ILayout } from "../types/layout.types";
+import { RepositoryPort } from "./repository.port";
 
-export interface ILayoutRepository {
-  insert(payload: ILayout): void;
-  getAll(): ILayout | null;
-}
+export interface ILayoutRepository extends RepositoryPort<ILayout> {}

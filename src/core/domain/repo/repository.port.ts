@@ -1,8 +1,9 @@
 export interface RepositoryPort<Entity> {
+  find(): Entity | null;
   findAll(): Entity[];
-  findByKey(): Entity;
+  findByKey(): Entity | null;
 
-  insert(entity: Entity): void;
+  insert(entity: Entity): void | Entity;
   insertMany(entities: Entity[]): void | Entity[];
 
   update(entity: Entity): void | Entity;
