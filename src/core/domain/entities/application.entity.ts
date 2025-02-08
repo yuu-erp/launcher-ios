@@ -27,10 +27,16 @@ export class ApplicationEntity extends AggregateRoot<ApplicationProps> {
   }
 
   validate(): void {
-    const { name, position, type } = this.getProps();
+    const { name, position, type, page } = this.getProps();
     invariant(
       name && name.trim() !== "",
       new ArgumentNotProvidedException("Application name is required")
+    );
+    invariant(
+      page != null && typeof page === "number",
+      new ArgumentNotProvidedException(
+        "Application page is required and must be a number"
+      )
     );
     invariant(
       position.width > 0,
@@ -39,6 +45,14 @@ export class ApplicationEntity extends AggregateRoot<ApplicationProps> {
     invariant(
       position.height > 0,
       new ArgumentNotProvidedException("Position height must be greater than 0")
+    );
+    invariant(
+      position.x != null && typeof position.x === "number",
+      new ArgumentNotProvidedException("Position x must be greater than 0")
+    );
+    invariant(
+      position.y != null && typeof position.y === "number",
+      new ArgumentNotProvidedException("Position y must be greater than 0")
     );
     invariant(
       Object.values(ApplicationType).includes(type),

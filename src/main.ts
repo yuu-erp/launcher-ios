@@ -29,7 +29,7 @@ async function bootstrap() {
     );
     const application = createApplicationUseCase.execute({
       id: 1,
-      name: "Dapp 1",
+      name: "Application 1",
       logo: "https://",
       url: "https://",
       type: 1,
