@@ -3,6 +3,7 @@ import { ILayoutRepository } from "@core/domain/repo/layout.repository";
 import { ILayout } from "@core/domain/types/layout.types";
 import { inject, injectable } from "inversify";
 import { type StoragePort } from "./storage.port";
+import { EntityId } from "@techmely/types";
 
 @injectable()
 export class LayoutStorage implements ILayoutRepository {
@@ -15,16 +16,18 @@ export class LayoutStorage implements ILayoutRepository {
   find(): ILayout | null {
     return this.storage.get(this.key);
   }
-
   insert(entity: ILayout): void | ILayout {
     this.storage.set(this.key, entity);
   }
 
+  // Các phương thức không cần thiết
   findAll(): ILayout[] {
     throw new Error("Method not implemented.");
   }
-
   findByKey(): ILayout {
+    throw new Error("Method not implemented.");
+  }
+  findByID(_id: EntityId): ILayout | null {
     throw new Error("Method not implemented.");
   }
 

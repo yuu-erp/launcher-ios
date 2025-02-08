@@ -16,6 +16,14 @@ import {
  */
 export class ArgumentNotProvidedException extends ExceptionBase {
   readonly code = ARGUMENT_NOT_PROVIDED;
+
+  constructor(
+    message?: string,
+    metadata?: Record<string, unknown>,
+    cause?: Error
+  ) {
+    super(message ?? NotFoundException.defaultMessage, cause, metadata);
+  }
 }
 
 /**
@@ -26,6 +34,14 @@ export class ArgumentNotProvidedException extends ExceptionBase {
  */
 export class ArgumentInvalidException extends ExceptionBase {
   readonly code = ARGUMENT_INVALID;
+
+  constructor(
+    message?: string,
+    metadata?: Record<string, unknown>,
+    cause?: Error
+  ) {
+    super(message ?? NotFoundException.defaultMessage, cause, metadata);
+  }
 }
 
 /**
@@ -37,6 +53,14 @@ export class ArgumentInvalidException extends ExceptionBase {
  */
 export class ArgumentOutOfRangeException extends ExceptionBase {
   readonly code = ARGUMENT_OUT_OF_RANGE;
+
+  constructor(
+    message?: string,
+    metadata?: Record<string, unknown>,
+    cause?: Error
+  ) {
+    super(message ?? NotFoundException.defaultMessage, cause, metadata);
+  }
 }
 
 /**
@@ -47,6 +71,14 @@ export class ArgumentOutOfRangeException extends ExceptionBase {
  */
 export class ConflictException extends ExceptionBase {
   readonly code = CONFLICT;
+
+  constructor(
+    message?: string,
+    metadata?: Record<string, unknown>,
+    cause?: Error
+  ) {
+    super(message ?? NotFoundException.defaultMessage, cause, metadata);
+  }
 }
 
 /**
@@ -56,9 +88,16 @@ export class ConflictException extends ExceptionBase {
  * @extends {ExceptionBase}
  */
 export class NotFoundException extends ExceptionBase {
-  static readonly message = "Not found";
-
+  static readonly defaultMessage = "Not found";
   readonly code = NOT_FOUND;
+
+  constructor(
+    message?: string,
+    metadata?: Record<string, unknown>,
+    cause?: Error
+  ) {
+    super(message ?? NotFoundException.defaultMessage, cause, metadata);
+  }
 }
 
 /**
@@ -71,4 +110,12 @@ export class InternalServerErrorException extends ExceptionBase {
   message = "Internal server error";
 
   readonly code = INTERNAL_SERVER_ERROR;
+
+  constructor(
+    message?: string,
+    metadata?: Record<string, unknown>,
+    cause?: Error
+  ) {
+    super(message ?? NotFoundException.defaultMessage, cause, metadata);
+  }
 }

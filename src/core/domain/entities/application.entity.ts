@@ -45,4 +45,16 @@ export class ApplicationEntity extends AggregateRoot<ApplicationProps> {
       new ArgumentInvalidException("Invalid application type")
     );
   }
+
+  isGroup(): boolean {
+    return this.getProps().type === ApplicationType.Group;
+  }
+
+  isUtility(): boolean {
+    return this.getProps().type === ApplicationType.Utility;
+  }
+
+  isApplication(): boolean {
+    return this.getProps().type === ApplicationType.Application;
+  }
 }
