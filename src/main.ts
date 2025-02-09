@@ -1,10 +1,11 @@
-import { AppContainer } from "@core/app-container";
-import { APPLICATION_USE_CASE } from "@core/app.symbols";
+import { AppContainer } from "./app-container";
+import { APPLICATION_USE_CASE, MODULE } from "@core/app.symbols";
 import { CalculateLayoutInteractor } from "@core/application/use-case/interactors/calculate-layout.interactor";
 import { CreateApplicationInteractor } from "@core/application/use-case/interactors/create-application.interactor";
 import { GetApplicationsInteractor } from "@core/application/use-case/interactors/get-application.interactor";
 import { GetLayoutInteractor } from "@core/application/use-case/interactors/get-layout.interactor";
 import { Logger } from "@core/infrastructure/logger";
+import { ApplicationController } from "./modules/application/application.controller";
 
 async function bootstrap() {
   const logger = new Logger();
@@ -49,6 +50,27 @@ async function bootstrap() {
       "🌼 Get Applications entity success!",
       getApplicationsUseCase.execute()
     );
+
+    // MODAL APPLICATION
+    const applicationController = app.get<ApplicationController>(
+      MODULE.APPLICATION_CONTROLLER
+    );
+    applicationController.createApplication({
+      id: 2,
+      name: "Application 2",
+      logo: "https://",
+      url: "https://",
+      type: 1,
+      page: 0,
+      position: {
+        width: 1,
+        height: 1,
+        x: 1,
+        y: 0,
+      },
+    });
+    const listApplication = applicationController.getApplications();
+    logger.debug("listApplication", listApplication);
   } catch (error) {
     logger.error("Application fail", error);
   }

@@ -20,3 +20,8 @@ export const INFRASTRUCTURE = {
   LAYOUT_STORAGE: Symbol.for("LayoutStorage"),
   APPLICATION_STORAGE: Symbol.for("ApplicationImplReposity"),
 };
+
+export const MODULE = {
+  APPLICATION_SERVICE: Symbol.for("ApplicationService"),
+  APPLICATION_CONTROLLER: Symbol.for("ApplicationController"),
+};
